@@ -397,35 +397,6 @@
     transform: scale(1.05);
   }
 
-  .photo-item:hover .photo-overlay {
-    opacity: 1;
-  }
-
-  .photo-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(15,5,32,0.9) 0%, rgba(15,5,32,0.3) 60%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    display: flex;
-    align-items: flex-end;
-    padding: 1.2rem;
-  }
-
-  .photo-overlay-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    color: var(--lavender);
-  }
-
-  .photo-overlay-cat {
-    font-size: 0.7rem;
-    color: var(--magenta);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.2rem;
-  }
-
   /* LIGHTBOX */
   .lightbox {
     display: none;
@@ -637,35 +608,6 @@
     border-color: var(--violet);
   }
 
-  .video-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(15,5,32,0.9) 0%, rgba(15,5,32,0.3) 60%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    display: flex;
-    align-items: flex-end;
-    padding: 1.2rem;
-  }
-
-  .video-item:hover .video-overlay {
-    opacity: 1;
-  }
-
-  .video-overlay-text {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.85rem;
-    color: var(--lavender);
-  }
-
-  .video-overlay-cat {
-    font-size: 0.7rem;
-    color: var(--teal);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 0.2rem;
-  }
-
   /* CONTACT */
   #contacto {
     border-top: 1px solid rgba(123,47,255,0.1);
@@ -825,7 +767,7 @@
         <span>Niño</span>
       </h1>
       <p class="hero-sub">
-        Creadora de contenido, estratega digital y editora visual. Transformo ideas en presencia.
+        Escritor, Creadora & Estratega
       </p>
       <div class="hero-ctas">
         <a href="#foto" class="btn-primary">Ver portafolio</a>
@@ -961,33 +903,33 @@
 <script>
   // Photo Gallery Data
   const photos = [
-    { name: 'Foto 1', category: 'Retrato editorial' },
-    { name: 'Foto 2', category: 'Marca personal' },
-    { name: 'Foto 3', category: 'Lifestyle' },
-    { name: 'Foto 4', category: 'Producto' },
-    { name: 'Foto 5', category: 'Editorial' },
-    { name: 'Foto 6', category: 'Retrato' },
-    { name: 'Foto 7', category: 'Retrato editorial' },
-    { name: 'Foto 8', category: 'Marca personal' },
-    { name: 'Foto 9', category: 'Lifestyle' },
-    { name: 'Foto 10', category: 'Producto' },
-    { name: 'Foto 11', category: 'Editorial' },
-    { name: 'Foto 12', category: 'Retrato' },
-    { name: 'Foto 13', category: 'Retrato editorial' },
-    { name: 'Foto 14', category: 'Marca personal' },
-    { name: 'Foto 15', category: 'Lifestyle' },
-    { name: 'Foto 16', category: 'Producto' },
-    { name: 'Foto 17', category: 'Editorial' }
+    { name: 'Foto 1' },
+    { name: 'Foto 2' },
+    { name: 'Foto 3' },
+    { name: 'Foto 4' },
+    { name: 'Foto 5' },
+    { name: 'Foto 6' },
+    { name: 'Foto 7' },
+    { name: 'Foto 8' },
+    { name: 'Foto 9' },
+    { name: 'Foto 10' },
+    { name: 'Foto 11' },
+    { name: 'Foto 12' },
+    { name: 'Foto 13' },
+    { name: 'Foto 14' },
+    { name: 'Foto 15' },
+    { name: 'Foto 16' },
+    { name: 'Foto 17' }
   ];
 
   // Video Gallery Data
   const videos = [
-    { title: 'Reels & TikTok', category: 'Redes sociales', url: 'https://www.youtube.com/embed/dzsvbYbD4g4?si=Tjb4XOX1-sXYeUM5' },
-    { title: 'Branding video', category: 'Marca personal', url: 'https://www.youtube.com/embed/hu-iBOPopjM?si=Yhm1u6EzZ2qJHhhx' },
-    { title: 'Cobertura audiovisual', category: 'Evento', url: 'https://www.youtube.com/embed/NuaA6Kge52Y?si=UeYIBEx-33HegoKZ' },
-    { title: 'Contenido orgánico', category: 'Campaña', url: 'https://www.youtube.com/embed/ObPs0-A_K-4?si=wuYMxd80I8Jmepat' },
-    { title: 'Cine Chairel', category: 'Documental', url: 'https://www.youtube.com/embed/VQNWSNv5oLo?si=RzX4eVbwpmLjS35l' },
-    { title: 'Storytelling visual', category: 'Lifestyle', url: 'https://www.youtube.com/embed/Px7EALrFslI?si=U5pZcTvLQm4aunjJ' }
+    { url: 'https://www.youtube.com/embed/dzsvbYbD4g4?si=Tjb4XOX1-sXYeUM5' },
+    { url: 'https://www.youtube.com/embed/hu-iBOPopjM?si=Yhm1u6EzZ2qJHhhx' },
+    { url: 'https://www.youtube.com/embed/NuaA6Kge52Y?si=UeYIBEx-33HegoKZ' },
+    { url: 'https://www.youtube.com/embed/ObPs0-A_K-4?si=wuYMxd80I8Jmepat' },
+    { url: 'https://www.youtube.com/embed/VQNWSNv5oLo?si=RzX4eVbwpmLjS35l' },
+    { url: 'https://www.youtube.com/embed/Px7EALrFslI?si=U5pZcTvLQm4aunjJ' }
   ];
 
   let currentPhotoIndex = 0;
@@ -999,15 +941,7 @@
     photos.forEach((photo, index) => {
       const item = document.createElement('div');
       item.className = 'photo-item';
-      item.innerHTML = `
-        <img src="${photo.name}" alt="${photo.name}">
-        <div class="photo-overlay">
-          <div class="photo-overlay-text">
-            <div class="photo-overlay-cat">${photo.category}</div>
-            ${photo.name}
-          </div>
-        </div>
-      `;
+      item.innerHTML = `<img src="${photo.name}" alt="${photo.name}">`;
       item.addEventListener('click', () => openPhotoLightbox(index));
       gallery.appendChild(item);
     });
@@ -1022,12 +956,6 @@
       item.innerHTML = `
         <div class="video-thumb">
           <div class="video-play"></div>
-          <div class="video-overlay">
-            <div class="video-overlay-text">
-              <div class="video-overlay-cat">${video.category}</div>
-              ${video.title}
-            </div>
-          </div>
         </div>
       `;
       item.addEventListener('click', () => openVideoLightbox(index));
