@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fer Puga Niño — Marketing, Diseño & Contenido</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f0520;
+    --bg2: #1a0a2e;
+    --bg3: #220d3a;
+    --violet: #7b2fff;
+    --magenta: #e040fb;
+    --coral: #ff6b6b;
+    --teal: #00e5cc;
+    --lavender: #d4b8ff;
+    --text: #f0eaff;
+    --muted: #9b87bb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(15,5,32,0.7);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(123,47,255,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    background: linear-gradient(90deg, var(--violet), var(--magenta));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+  }
+
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+
+  nav a:hover { color: var(--lavender); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 6rem 3rem 3rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(224,64,251,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 60% at 10% 80%, rgba(123,47,255,0.2) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 50% 50%, rgba(0,229,204,0.06) 0%, transparent 70%);
+    animation: bgPulse 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgPulse {
+    0% { opacity: 0.8; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.05); }
+  }
+
+  .hero-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    max-width: 1100px;
+    width: 100%;
+    align-items: center;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--teal);
+    border: 1px solid rgba(0,229,204,0.3);
+    padding: 0.35rem 1rem;
+    border-radius: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+
+  .hero-name span {
+    display: block;
+    background: linear-gradient(135deg, var(--lavender) 0%, var(--magenta) 50%, var(--violet) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 420px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--violet), var(--magenta));
+    color: white;
+    padding: 0.8rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(123,47,255,0.4);
+  }
+
+  .btn-outline {
+    border: 1px solid rgba(212,184,255,0.3);
+    color: var(--lavender);
+    padding: 0.8rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--lavender);
+    background: rgba(212,184,255,0.05);
+  }
+
+  /* HERO VISUAL */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .hero-photo-frame {
+    position: relative;
+    width: 340px;
+    height: 420px;
+  }
+
+  .hero-photo-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 60% 40% 55% 45% / 50% 45% 55% 50%;
+    background: linear-gradient(135deg, var(--violet) 0%, var(--magenta) 50%, var(--coral) 100%);
+    opacity: 0.25;
+    animation: morphShape 6s ease-in-out infinite alternate;
+  }
+
+  @keyframes morphShape {
+    0% { border-radius: 60% 40% 55% 45% / 50% 45% 55% 50%; }
+    100% { border-radius: 40% 60% 45% 55% / 55% 50% 50% 45%; }
+  }
+
+  .hero-photo-inner {
+    position: absolute;
+    inset: 20px;
+    border-radius: 50% 45% 55% 50% / 48% 52% 48% 52%;
+    background: var(--bg3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .hero-photo-inner img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50% 45% 55% 50% / 48% 52% 48% 52%;
+  }
+
+  .hero-float-pill {
+    position: absolute;
+    background: rgba(15,5,32,0.85);
+    border: 1px solid rgba(123,47,255,0.3);
+    border-radius: 1rem;
+    padding: 0.6rem 1rem;
+    backdrop-filter: blur(8px);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.78rem;
+    color: var(--lavender);
+    white-space: nowrap;
+  }
+
+  .pill-1 { top: 5%; right: -10%; animation: float1 3s ease-in-out infinite; }
+  .pill-2 { bottom: 15%; left: -15%; animation: float2 3.5s ease-in-out infinite; }
+  .pill-3 { top: 40%; right: -20%; animation: float1 4s ease-in-out infinite; }
+
+  @keyframes float1 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  @keyframes float2 {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* SECTIONS COMMON */
+  section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--magenta);
+    margin-bottom: 1rem;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .divider {
+    width: 3rem;
+    height: 3px;
+    background: linear-gradient(90deg, var(--violet), var(--teal));
+    border-radius: 2px;
+    margin-bottom: 3rem;
+  }
+
+  /* ABOUT */
+  #about {
+    border-top: 1px solid rgba(123,47,255,0.1);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .skill-tag {
+    font-size: 0.78rem;
+    font-family: 'Space Grotesk', sans-serif;
+    padding: 0.4rem 0.9rem;
+    border-radius: 2rem;
+    border: 1px solid;
+    letter-spacing: 0.03em;
+  }
+
+  .tag-violet { color: var(--violet); border-color: rgba(123,47,255,0.3); background: rgba(123,47,255,0.07); }
+  .tag-magenta { color: var(--magenta); border-color: rgba(224,64,251,0.3); background: rgba(224,64,251,0.07); }
+  .tag-teal { color: var(--teal); border-color: rgba(0,229,204,0.3); background: rgba(0,229,204,0.07); }
+  .tag-coral { color: var(--coral); border-color: rgba(255,107,107,0.3); background: rgba(255,107,107,0.07); }
+
+  .about-right p {
+    color: var(--muted);
+    line-height: 1.8;
+    font-size: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .cert-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .cert-card {
+    background: var(--bg3);
+    border: 1px solid rgba(123,47,255,0.2);
+    border-radius: 0.75rem;
+    padding: 1rem 1.2rem;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .cert-card .cert-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    font-family: 'Space Grotesk', sans-serif;
+    margin-bottom: 0.3rem;
+  }
+
+  .cert-card .cert-name {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--lavender);
+  }
+
+  /* PHOTO GRID */
+  #foto {
+    border-top: 1px solid rgba(123,47,255,0.1);
+  }
+
+  .photo-grid {
+    columns: 3;
+    gap: 1rem;
+  }
+
+  .photo-item {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .photo-placeholder {
+    width: 100%;
+    display: block;
+  }
+
+  .photo-item:hover .photo-overlay {
+    opacity: 1;
+  }
+
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,5,32,0.9) 0%, rgba(15,5,32,0.3) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.2rem;
+  }
+
+  .photo-overlay-text {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.85rem;
+    color: var(--lavender);
+  }
+
+  .photo-overlay-cat {
+    font-size: 0.7rem;
+    color: var(--magenta);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+
+  /* VIDEO GRID */
+  #video {
+    border-top: 1px solid rgba(123,47,255,0.1);
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .video-item {
+    position: relative;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .video-thumb {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .video-play {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    border: 2px solid rgba(255,255,255,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  .video-play::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 9px 0 9px 16px;
+    border-color: transparent transparent transparent white;
+    margin-left: 4px;
+  }
+
+  .video-item:hover .video-play {
+    transform: scale(1.15);
+    background: rgba(123,47,255,0.5);
+    border-color: var(--violet);
+  }
+
+  .video-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 0.8rem 1rem;
+    background: linear-gradient(to top, rgba(15,5,32,0.95), transparent);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    color: var(--lavender);
+  }
+
+  .video-label span {
+    display: block;
+    font-size: 0.68rem;
+    color: var(--teal);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.15rem;
+  }
+
+  /* CONTACT */
+  #contacto {
+    border-top: 1px solid rgba(123,47,255,0.1);
+    text-align: center;
+    max-width: 700px;
+  }
+
+  .contact-big {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 4.5rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .contact-sub {
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+    font-size: 0.95rem;
+  }
+
+  .contact-email {
+    display: inline-block;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.1rem;
+    color: var(--lavender);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(212,184,255,0.3);
+    padding-bottom: 0.2rem;
+    margin-bottom: 2.5rem;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .contact-email:hover {
+    color: var(--magenta);
+    border-color: var(--magenta);
+  }
+
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .social-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid rgba(212,184,255,0.2);
+    border-radius: 2rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.82rem;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+  }
+
+  .social-pill:hover {
+    border-color: var(--violet);
+    color: var(--lavender);
+    background: rgba(123,47,255,0.08);
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(123,47,255,0.1);
+    text-align: center;
+    padding: 2rem 3rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* CURSOR GLOW */
+  .cursor-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,47,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    nav ul { gap: 1.2rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero-grid { grid-template-columns: 1fr; text-align: center; }
+    .hero-visual { display: none; }
+    .hero-sub { max-width: 100%; }
+    .hero-ctas { justify-content: center; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .photo-grid { columns: 2; }
+    .video-grid { grid-template-columns: 1fr 1fr; }
+    #contacto { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+
+  @media (max-width: 480px) {
+    .photo-grid { columns: 1; }
+    .video-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">FPN</div>
+  <ul>
+    <li><a href="#about">Sobre mí</a></li>
+    <li><a href="#foto">Foto</a></li>
+    <li><a href="#video">Video</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="max-width:100%; padding-top:6rem;">
+  <div class="hero-bg"></div>
+  <div class="hero-grid">
+    <div>
+      <div class="hero-tag">Marketing · Diseño · Contenido</div>
+      <h1 class="hero-name">
+        <span>Fer</span>
+        <span>Puga</span>
+        <span>Niño</span>
+      </h1>
+      <p class="hero-sub">
+        Creadora de contenido, estratega digital y editora visual. Transformo ideas en presencia.
+      </p>
+      <div class="hero-ctas">
+        <a href="#foto" class="btn-primary">Ver portafolio</a>
+        <a href="#contacto" class="btn-outline">Hablemos</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-photo-frame">
+        <div class="hero-photo-bg"></div>
+        <div class="hero-photo-inner">
+          <img src="Hero" alt="Fer Puga Niño">
+        </div>
+        <div class="hero-float-pill pill-1">✦ Content Creator</div>
+        <div class="hero-float-pill pill-2">Adobe Ps · Ai · Lr</div>
+        <div class="hero-float-pill pill-3">TOEFL · MOS Cert.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="reveal">
+  <div class="section-eyebrow">Quién soy</div>
+  <h2 class="section-title">Sobre mí</h2>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div>
+      <div class="about-skills">
+        <span class="skill-tag tag-violet">Community Manager</span>
+        <span class="skill-tag tag-magenta">Creación de contenido</span>
+        <span class="skill-tag tag-teal">Diseño gráfico</span>
+        <span class="skill-tag tag-coral">Fotografía & videografía</span>
+        <span class="skill-tag tag-violet">Edición foto & video</span>
+        <span class="skill-tag tag-magenta">Redes sociales</span>
+        <span class="skill-tag tag-teal">SEO & Content Marketing</span>
+        <span class="skill-tag tag-coral">Inglés avanzado</span>
+        <span class="skill-tag tag-violet">IA prompting</span>
+        <span class="skill-tag tag-magenta">Análisis de métricas</span>
+        <span class="skill-tag tag-teal">Estrategia digital</span>
+        <span class="skill-tag tag-coral">Adobe Ps · Ai · Lr</span>
+      </div>
+      <div class="cert-row" style="margin-top:2.5rem;">
+        <div class="cert-card">
+          <div class="cert-label">Certificación</div>
+          <div class="cert-name">TOEFL</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-label">Certificación</div>
+          <div class="cert-name">Microsoft Office Specialist</div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-label">Certificación</div>
+          <div class="cert-name">SEO & Content Marketing</div>
+        </div>
+      </div>
+    </div>
+    <div class="about-right">
+      <p>Soy estudiante de Marketing Estratégico en IEST Anáhuac, Tampico, con enfoque en el mundo digital. Mi trabajo combina creatividad y análisis: construyo estrategias de contenido que no solo se ven bien, sino que funcionan.</p>
+      <p>He trabajado como community manager, creadora de contenido, asistente administrativa y directora de creación de contenido orgánico. Cada rol me dio una perspectiva distinta sobre cómo las marcas hablan — y cómo deberían hacerlo.</p>
+      <p>Domino herramientas como Adobe Photoshop, Illustrator, Lightroom, Canva, Premiere y CapCut. Y sí, también sé cómo usar la IA para crear, automatizar y escalar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOTO -->
+<section id="foto" class="reveal">
+  <div class="section-eyebrow">Edición & fotografía</div>
+  <h2 class="section-title">Portafolio fotográfico</h2>
+  <div class="divider"></div>
+  <div class="photo-grid">
+
+    <div class="photo-item">
+      <svg class="photo-placeholder" viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="520" fill="#1a0832"/>
+        <rect x="0" y="0" width="400" height="520" fill="url(#g1)" opacity="0.6"/>
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7b2fff"/><stop offset="100%" stop-color="#e040fb"/></linearGradient></defs>
+        <text x="200" y="270" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 01</text>
+      </svg>
+      <div class="photo-overlay">
+        <div class="photo-overlay-text">
+          <div class="photo-overlay-cat">Retrato editorial</div>
+          Proyecto 01
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-item">
+      <svg class="photo-placeholder" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="320" fill="#0d1a2e"/>
+        <rect x="0" y="0" width="400" height="320" fill="url(#g2)" opacity="0.5"/>
+        <defs><linearGradient id="g2" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00e5cc"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient></defs>
+        <text x="200" y="165" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 02</text>
+      </svg>
+      <div class="photo-overlay">
+        <div class="photo-overlay-text">
+          <div class="photo-overlay-cat">Marca personal</div>
+          Proyecto 02
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-item">
+      <svg class="photo-placeholder" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="380" fill="#2a0a1a"/>
+        <rect x="0" y="0" width="400" height="380" fill="url(#g3)" opacity="0.55"/>
+        <defs><linearGradient id="g3" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#e040fb"/></linearGradient></defs>
+        <text x="200" y="195" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 03</text>
+      </svg>
+      <div class="photo-overlay">
+        <div class="photo-overlay-text">
+          <div class="photo-overlay-cat">Lifestyle</div>
+          Proyecto 03
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-item">
+      <svg class="photo-placeholder" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="420" fill="#0a1a2a"/>
+        <rect x="0" y="0" width="400" height="420" fill="url(#g4)" opacity="0.5"/>
+        <defs><linearGradient id="g4" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#00e5cc"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient></defs>
+        <text x="200" y="215" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 04</text>
+      </svg>
+      <div class="photo-overlay">
+        <div class="photo-overlay-text">
+          <div class="photo-overlay-cat">Producto</div>
+          Proyecto 04
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-item">
+      <svg class="photo-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="300" fill="#1a0a28"/>
+        <rect x="0" y="0" width="400" height="300" fill="url(#g5)" opacity="0.6"/>
+        <defs><linearGradient id="g5" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#e040fb"/><stop offset="100%" stop-color="#ff6b6b"/></linearGradient></defs>
+        <text x="200" y="155" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 05</text>
+      </svg>
+      <div class="photo-overlay">
+        <div class="photo-overlay-text">
+          <div class="photo-overlay-cat">Editorial</div>
+          Proyecto 05
+        </div>
+      </div>
+    </div>
+
+    <div class="photo-item">
+      <svg class="photo-placeholder" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
+        <rect width="400" height="460" fill="#0f1a20"/>
+        <rect x="0" y="0" width="400" height="460" fill="url(#g6)" opacity="0.5"/>
+        <defs><linearGradient id="g6" x1="0" y1="0.5" x2="1" y2="0.5"><stop offset="0%" stop-color="#7b2fff"/><stop offset="100%" stop-color="#00e5cc"/></linearGradient></defs>
+        <text x="200" y="235" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 06</text>
+      </svg>
+      <div class="photo-overlay">
+        <div class="photo-overlay-text">
+          <div class="photo-overlay-cat">Retrato</div>
+          Proyecto 06
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- VIDEO -->
+<section id="video" class="reveal">
+  <div class="section-eyebrow">Edición audiovisual</div>
+  <h2 class="section-title">Portafolio de video</h2>
+  <div class="divider"></div>
+  <div class="video-grid">
+
+    <div class="video-item">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #1a0832 0%, #3a0d5c 100%);">
+        <div class="video-play"></div>
+        <div class="video-label"><span>Redes sociales</span>Reels & TikTok</div>
+      </div>
+    </div>
+
+    <div class="video-item">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #0d1a2e 0%, #0a3040 100%);">
+        <div class="video-play"></div>
+        <div class="video-label"><span>Marca personal</span>Branding video</div>
+      </div>
+    </div>
+
+    <div class="video-item">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #2a0a1a 0%, #3a0a28 100%);">
+        <div class="video-play"></div>
+        <div class="video-label"><span>Evento</span>Cobertura audiovisual</div>
+      </div>
+    </div>
+
+    <div class="video-item">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #0a1520 0%, #1a2a1a 100%);">
+        <div class="video-play"></div>
+        <div class="video-label"><span>Campaña</span>Contenido orgánico</div>
+      </div>
+    </div>
+
+    <div class="video-item">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #1a0a28 0%, #2a1030 100%);">
+        <div class="video-play"></div>
+        <div class="video-label"><span>Documental</span>Cine Chairel</div>
+      </div>
+    </div>
+
+    <div class="video-item">
+      <div class="video-thumb" style="background: linear-gradient(135deg, #0a1a1a 0%, #0a2030 100%);">
+        <div class="video-play"></div>
+        <div class="video-label"><span>Lifestyle</span>Storytelling visual</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contacto" style="max-width:700px; margin:0 auto;" class="reveal">
+  <div class="section-eyebrow">Trabajemos juntos</div>
+  <h2 class="contact-big">¿Tienes un proyecto en mente?</h2>
+  <p class="contact-sub">Estoy disponible para colaboraciones de contenido, estrategia digital, edición de foto y video, y proyectos creativos.</p>
+  <a href="mailto:ferpuganino@gmail.com" class="contact-email">ferpuganino@gmail.com</a>
+  <div class="socials">
+    <a href="https://instagram.com/fwks04" target="_blank" class="social-pill">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      @fwks04
+    </a>
+    <a href="https://wa.me/528331064290" target="_blank" class="social-pill">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+</section>
+
+<footer>
+  © 2025 Fer Puga Niño — Marketing, Diseño & Contenido
+</footer>
+
+<script>
+  // Cursor glow
+  const glow = document.getElementById('cursorGlow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Parallax hero bg
+  window.addEventListener('scroll', () => {
+    const bg = document.querySelector('.hero-bg');
+    if (bg) bg.style.transform = `translateY(${window.scrollY * 0.3}px)`;
+  });
+</script>
+</body>
+</html>
