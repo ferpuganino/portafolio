@@ -459,6 +459,14 @@
     animation: zoomIn 0.3s ease;
   }
 
+  .lightbox-video {
+    width: 90vw;
+    max-width: 1000px;
+    height: auto;
+    aspect-ratio: 16/9;
+    animation: zoomIn 0.3s ease;
+  }
+
   @keyframes zoomIn {
     from {
       transform: scale(0.8);
@@ -575,7 +583,7 @@
 
   .video-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
     gap: 1.2rem;
   }
 
@@ -584,15 +592,19 @@
     border-radius: 0.75rem;
     overflow: hidden;
     cursor: pointer;
+    aspect-ratio: 16/9;
+    background: var(--bg3);
+    border: 1px solid rgba(123,47,255,0.1);
   }
 
   .video-thumb {
     width: 100%;
-    aspect-ratio: 16/9;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
+    background: linear-gradient(135deg, var(--bg3) 0%, var(--bg2) 100%);
   }
 
   .video-play {
@@ -625,23 +637,33 @@
     border-color: var(--violet);
   }
 
-  .video-label {
+  .video-overlay {
     position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 0.8rem 1rem;
-    background: linear-gradient(to top, rgba(15,5,32,0.95), transparent);
+    inset: 0;
+    background: linear-gradient(to top, rgba(15,5,32,0.9) 0%, rgba(15,5,32,0.3) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.2rem;
+  }
+
+  .video-item:hover .video-overlay {
+    opacity: 1;
+  }
+
+  .video-overlay-text {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 0.82rem;
+    font-size: 0.85rem;
     color: var(--lavender);
   }
 
-  .video-label span {
-    display: block;
-    font-size: 0.68rem;
+  .video-overlay-cat {
+    font-size: 0.7rem;
     color: var(--teal);
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    margin-bottom: 0.15rem;
+    margin-bottom: 0.2rem;
   }
 
   /* CONTACT */
@@ -759,7 +781,7 @@
     .hero-ctas { justify-content: center; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-    .video-grid { grid-template-columns: 1fr 1fr; }
+    .video-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     #contacto { padding-left: 1.5rem; padding-right: 1.5rem; }
     .lightbox-nav { width: 40px; height: 40px; }
     .lightbox-prev { left: 1rem; }
@@ -770,6 +792,7 @@
     .photo-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
     .video-grid { grid-template-columns: 1fr; }
     .lightbox-image { max-width: 95vw; max-height: 80vh; }
+    .lightbox-video { width: 95vw; }
     .lightbox-close { width: 40px; height: 40px; }
     .lightbox-nav { width: 40px; height: 40px; }
   }
@@ -877,7 +900,7 @@
   </div>
 </section>
 
-<!-- LIGHTBOX -->
+<!-- LIGHTBOX PARA FOTOS -->
 <div class="lightbox" id="lightbox">
   <div class="lightbox-content">
     <button class="lightbox-close" id="lightboxClose"></button>
@@ -895,52 +918,23 @@
   <div class="section-eyebrow">Edición audiovisual</div>
   <h2 class="section-title">Portafolio de video</h2>
   <div class="divider"></div>
-  <div class="video-grid">
-
-    <div class="video-item">
-      <div class="video-thumb" style="background: linear-gradient(135deg, #1a0832 0%, #3a0d5c 100%);">
-        <div class="video-play"></div>
-        <div class="video-label"><span>Redes sociales</span>Reels & TikTok</div>
-      </div>
-    </div>
-
-    <div class="video-item">
-      <div class="video-thumb" style="background: linear-gradient(135deg, #0d1a2e 0%, #0a3040 100%);">
-        <div class="video-play"></div>
-        <div class="video-label"><span>Marca personal</span>Branding video</div>
-      </div>
-    </div>
-
-    <div class="video-item">
-      <div class="video-thumb" style="background: linear-gradient(135deg, #2a0a1a 0%, #3a0a28 100%);">
-        <div class="video-play"></div>
-        <div class="video-label"><span>Evento</span>Cobertura audiovisual</div>
-      </div>
-    </div>
-
-    <div class="video-item">
-      <div class="video-thumb" style="background: linear-gradient(135deg, #0a1520 0%, #1a2a1a 100%);">
-        <div class="video-play"></div>
-        <div class="video-label"><span>Campaña</span>Contenido orgánico</div>
-      </div>
-    </div>
-
-    <div class="video-item">
-      <div class="video-thumb" style="background: linear-gradient(135deg, #1a0a28 0%, #2a1030 100%);">
-        <div class="video-play"></div>
-        <div class="video-label"><span>Documental</span>Cine Chairel</div>
-      </div>
-    </div>
-
-    <div class="video-item">
-      <div class="video-thumb" style="background: linear-gradient(135deg, #0a1a1a 0%, #0a2030 100%);">
-        <div class="video-play"></div>
-        <div class="video-label"><span>Lifestyle</span>Storytelling visual</div>
-      </div>
-    </div>
-
+  <div class="video-grid" id="videoGallery">
+    <!-- Videos will be loaded here by JavaScript -->
   </div>
 </section>
+
+<!-- LIGHTBOX PARA VIDEOS -->
+<div class="lightbox" id="videoLightbox">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="videoLightboxClose"></button>
+    <button class="lightbox-nav lightbox-prev" id="videoLightboxPrev"></button>
+    <iframe class="lightbox-video" id="lightboxIframe" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <button class="lightbox-nav lightbox-next" id="videoLightboxNext"></button>
+    <div class="lightbox-counter">
+      <span id="videoLightboxCounter">1 / 6</span>
+    </div>
+  </div>
+</div>
 
 <!-- CONTACT -->
 <section id="contacto" style="max-width:700px; margin:0 auto;" class="reveal">
@@ -986,10 +980,21 @@
     { name: 'Foto 17', category: 'Editorial' }
   ];
 
-  let currentPhotoIndex = 0;
+  // Video Gallery Data
+  const videos = [
+    { title: 'Reels & TikTok', category: 'Redes sociales', url: 'https://www.youtube.com/embed/dzsvbYbD4g4?si=Tjb4XOX1-sXYeUM5' },
+    { title: 'Branding video', category: 'Marca personal', url: 'https://www.youtube.com/embed/hu-iBOPopjM?si=Yhm1u6EzZ2qJHhhx' },
+    { title: 'Cobertura audiovisual', category: 'Evento', url: 'https://www.youtube.com/embed/NuaA6Kge52Y?si=UeYIBEx-33HegoKZ' },
+    { title: 'Contenido orgánico', category: 'Campaña', url: 'https://www.youtube.com/embed/ObPs0-A_K-4?si=wuYMxd80I8Jmepat' },
+    { title: 'Cine Chairel', category: 'Documental', url: 'https://www.youtube.com/embed/VQNWSNv5oLo?si=RzX4eVbwpmLjS35l' },
+    { title: 'Storytelling visual', category: 'Lifestyle', url: 'https://www.youtube.com/embed/Px7EALrFslI?si=U5pZcTvLQm4aunjJ' }
+  ];
 
-  // Load gallery
-  function loadGallery() {
+  let currentPhotoIndex = 0;
+  let currentVideoIndex = 0;
+
+  // Load photo gallery
+  function loadPhotoGallery() {
     const gallery = document.getElementById('photoGallery');
     photos.forEach((photo, index) => {
       const item = document.createElement('div');
@@ -1003,13 +1008,35 @@
           </div>
         </div>
       `;
-      item.addEventListener('click', () => openLightbox(index));
+      item.addEventListener('click', () => openPhotoLightbox(index));
       gallery.appendChild(item);
     });
   }
 
-  // Lightbox functions
-  function openLightbox(index) {
+  // Load video gallery
+  function loadVideoGallery() {
+    const gallery = document.getElementById('videoGallery');
+    videos.forEach((video, index) => {
+      const item = document.createElement('div');
+      item.className = 'video-item';
+      item.innerHTML = `
+        <div class="video-thumb">
+          <div class="video-play"></div>
+          <div class="video-overlay">
+            <div class="video-overlay-text">
+              <div class="video-overlay-cat">${video.category}</div>
+              ${video.title}
+            </div>
+          </div>
+        </div>
+      `;
+      item.addEventListener('click', () => openVideoLightbox(index));
+      gallery.appendChild(item);
+    });
+  }
+
+  // Photo Lightbox functions
+  function openPhotoLightbox(index) {
     currentPhotoIndex = index;
     const lightbox = document.getElementById('lightbox');
     const image = document.getElementById('lightboxImage');
@@ -1021,7 +1048,7 @@
     document.body.style.overflow = 'hidden';
   }
 
-  function closeLightbox() {
+  function closePhotoLightbox() {
     const lightbox = document.getElementById('lightbox');
     lightbox.classList.remove('active');
     document.body.style.overflow = 'auto';
@@ -1043,14 +1070,60 @@
     counter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
   }
 
-  // Event listeners
-  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  // Video Lightbox functions
+  function openVideoLightbox(index) {
+    currentVideoIndex = index;
+    const lightbox = document.getElementById('videoLightbox');
+    const iframe = document.getElementById('lightboxIframe');
+    const counter = document.getElementById('videoLightboxCounter');
+    
+    iframe.src = videos[index].url;
+    counter.textContent = `${index + 1} / ${videos.length}`;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideoLightbox() {
+    const lightbox = document.getElementById('videoLightbox');
+    const iframe = document.getElementById('lightboxIframe');
+    lightbox.classList.remove('active');
+    iframe.src = '';
+    document.body.style.overflow = 'auto';
+  }
+
+  function nextVideo() {
+    currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+    const iframe = document.getElementById('lightboxIframe');
+    const counter = document.getElementById('videoLightboxCounter');
+    iframe.src = videos[currentVideoIndex].url;
+    counter.textContent = `${currentVideoIndex + 1} / ${videos.length}`;
+  }
+
+  function prevVideo() {
+    currentVideoIndex = (currentVideoIndex - 1 + videos.length) % videos.length;
+    const iframe = document.getElementById('lightboxIframe');
+    const counter = document.getElementById('videoLightboxCounter');
+    iframe.src = videos[currentVideoIndex].url;
+    counter.textContent = `${currentVideoIndex + 1} / ${videos.length}`;
+  }
+
+  // Photo Lightbox Event listeners
+  document.getElementById('lightboxClose').addEventListener('click', closePhotoLightbox);
   document.getElementById('lightboxNext').addEventListener('click', nextPhoto);
   document.getElementById('lightboxPrev').addEventListener('click', prevPhoto);
 
+  // Video Lightbox Event listeners
+  document.getElementById('videoLightboxClose').addEventListener('click', closeVideoLightbox);
+  document.getElementById('videoLightboxNext').addEventListener('click', nextVideo);
+  document.getElementById('videoLightboxPrev').addEventListener('click', prevVideo);
+
   // Close lightbox on background click
   document.getElementById('lightbox').addEventListener('click', (e) => {
-    if (e.target.id === 'lightbox') closeLightbox();
+    if (e.target.id === 'lightbox') closePhotoLightbox();
+  });
+
+  document.getElementById('videoLightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'videoLightbox') closeVideoLightbox();
   });
 
   // Keyboard navigation
@@ -1058,12 +1131,18 @@
     if (document.getElementById('lightbox').classList.contains('active')) {
       if (e.key === 'ArrowRight') nextPhoto();
       if (e.key === 'ArrowLeft') prevPhoto();
-      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'Escape') closePhotoLightbox();
+    }
+    if (document.getElementById('videoLightbox').classList.contains('active')) {
+      if (e.key === 'ArrowRight') nextVideo();
+      if (e.key === 'ArrowLeft') prevVideo();
+      if (e.key === 'Escape') closeVideoLightbox();
     }
   });
 
-  // Initialize gallery
-  loadGallery();
+  // Initialize galleries
+  loadPhotoGallery();
+  loadVideoGallery();
 
   // Cursor glow
   const glow = document.getElementById('cursorGlow');
