@@ -371,22 +371,30 @@
   }
 
   .photo-grid {
-    columns: 3;
-    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2rem;
   }
 
   .photo-item {
-    break-inside: avoid;
-    margin-bottom: 1rem;
     position: relative;
     border-radius: 0.75rem;
     overflow: hidden;
     cursor: pointer;
+    aspect-ratio: 1;
+    background: var(--bg3);
+    border: 1px solid rgba(123,47,255,0.1);
   }
 
-  .photo-placeholder {
+  .photo-item img {
     width: 100%;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+
+  .photo-item:hover img {
+    transform: scale(1.05);
   }
 
   .photo-item:hover .photo-overlay {
@@ -416,6 +424,148 @@
     letter-spacing: 0.1em;
     text-transform: uppercase;
     margin-bottom: 0.2rem;
+  }
+
+  /* LIGHTBOX */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .lightbox-image {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    animation: zoomIn 0.3s ease;
+  }
+
+  @keyframes zoomIn {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 50px;
+    height: 50px;
+    background: rgba(123,47,255,0.2);
+    border: 1px solid rgba(123,47,255,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+
+  .lightbox-close:hover {
+    background: rgba(123,47,255,0.4);
+  }
+
+  .lightbox-close::before,
+  .lightbox-close::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 20px;
+    background: var(--lavender);
+  }
+
+  .lightbox-close::before {
+    transform: rotate(45deg);
+  }
+
+  .lightbox-close::after {
+    transform: rotate(-45deg);
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(123,47,255,0.2);
+    border: 1px solid rgba(123,47,255,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+
+  .lightbox-nav:hover {
+    background: rgba(123,47,255,0.4);
+  }
+
+  .lightbox-prev {
+    left: 2rem;
+  }
+
+  .lightbox-next {
+    right: 2rem;
+  }
+
+  .lightbox-nav::before {
+    content: '';
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+
+  .lightbox-prev::before {
+    border-width: 8px 12px 8px 0;
+    border-color: transparent var(--lavender) transparent transparent;
+  }
+
+  .lightbox-next::before {
+    border-width: 8px 0 8px 12px;
+    border-color: transparent transparent transparent var(--lavender);
+  }
+
+  .lightbox-counter {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.9rem;
+    color: var(--lavender);
+    background: rgba(123,47,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(123,47,255,0.3);
   }
 
   /* VIDEO GRID */
@@ -608,14 +758,20 @@
     .hero-sub { max-width: 100%; }
     .hero-ctas { justify-content: center; }
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .photo-grid { columns: 2; }
+    .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     .video-grid { grid-template-columns: 1fr 1fr; }
     #contacto { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .lightbox-nav { width: 40px; height: 40px; }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
   }
 
   @media (max-width: 480px) {
-    .photo-grid { columns: 1; }
+    .photo-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
     .video-grid { grid-template-columns: 1fr; }
+    .lightbox-image { max-width: 95vw; max-height: 80vh; }
+    .lightbox-close { width: 40px; height: 40px; }
+    .lightbox-nav { width: 40px; height: 40px; }
   }
 </style>
 </head>
@@ -716,100 +872,23 @@
   <div class="section-eyebrow">Edición & fotografía</div>
   <h2 class="section-title">Portafolio fotográfico</h2>
   <div class="divider"></div>
-  <div class="photo-grid">
-
-    <div class="photo-item">
-      <svg class="photo-placeholder" viewBox="0 0 400 520" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="520" fill="#1a0832"/>
-        <rect x="0" y="0" width="400" height="520" fill="url(#g1)" opacity="0.6"/>
-        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#7b2fff"/><stop offset="100%" stop-color="#e040fb"/></linearGradient></defs>
-        <text x="200" y="270" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 01</text>
-      </svg>
-      <div class="photo-overlay">
-        <div class="photo-overlay-text">
-          <div class="photo-overlay-cat">Retrato editorial</div>
-          Proyecto 01
-        </div>
-      </div>
-    </div>
-
-    <div class="photo-item">
-      <svg class="photo-placeholder" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="320" fill="#0d1a2e"/>
-        <rect x="0" y="0" width="400" height="320" fill="url(#g2)" opacity="0.5"/>
-        <defs><linearGradient id="g2" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#00e5cc"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient></defs>
-        <text x="200" y="165" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 02</text>
-      </svg>
-      <div class="photo-overlay">
-        <div class="photo-overlay-text">
-          <div class="photo-overlay-cat">Marca personal</div>
-          Proyecto 02
-        </div>
-      </div>
-    </div>
-
-    <div class="photo-item">
-      <svg class="photo-placeholder" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="380" fill="#2a0a1a"/>
-        <rect x="0" y="0" width="400" height="380" fill="url(#g3)" opacity="0.55"/>
-        <defs><linearGradient id="g3" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#ff6b6b"/><stop offset="100%" stop-color="#e040fb"/></linearGradient></defs>
-        <text x="200" y="195" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 03</text>
-      </svg>
-      <div class="photo-overlay">
-        <div class="photo-overlay-text">
-          <div class="photo-overlay-cat">Lifestyle</div>
-          Proyecto 03
-        </div>
-      </div>
-    </div>
-
-    <div class="photo-item">
-      <svg class="photo-placeholder" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="420" fill="#0a1a2a"/>
-        <rect x="0" y="0" width="400" height="420" fill="url(#g4)" opacity="0.5"/>
-        <defs><linearGradient id="g4" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0%" stop-color="#00e5cc"/><stop offset="100%" stop-color="#7b2fff"/></linearGradient></defs>
-        <text x="200" y="215" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 04</text>
-      </svg>
-      <div class="photo-overlay">
-        <div class="photo-overlay-text">
-          <div class="photo-overlay-cat">Producto</div>
-          Proyecto 04
-        </div>
-      </div>
-    </div>
-
-    <div class="photo-item">
-      <svg class="photo-placeholder" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="300" fill="#1a0a28"/>
-        <rect x="0" y="0" width="400" height="300" fill="url(#g5)" opacity="0.6"/>
-        <defs><linearGradient id="g5" x1="1" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="#e040fb"/><stop offset="100%" stop-color="#ff6b6b"/></linearGradient></defs>
-        <text x="200" y="155" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 05</text>
-      </svg>
-      <div class="photo-overlay">
-        <div class="photo-overlay-text">
-          <div class="photo-overlay-cat">Editorial</div>
-          Proyecto 05
-        </div>
-      </div>
-    </div>
-
-    <div class="photo-item">
-      <svg class="photo-placeholder" viewBox="0 0 400 460" xmlns="http://www.w3.org/2000/svg">
-        <rect width="400" height="460" fill="#0f1a20"/>
-        <rect x="0" y="0" width="400" height="460" fill="url(#g6)" opacity="0.5"/>
-        <defs><linearGradient id="g6" x1="0" y1="0.5" x2="1" y2="0.5"><stop offset="0%" stop-color="#7b2fff"/><stop offset="100%" stop-color="#00e5cc"/></linearGradient></defs>
-        <text x="200" y="235" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="sans-serif" font-size="13">Proyecto 06</text>
-      </svg>
-      <div class="photo-overlay">
-        <div class="photo-overlay-text">
-          <div class="photo-overlay-cat">Retrato</div>
-          Proyecto 06
-        </div>
-      </div>
-    </div>
-
+  <div class="photo-grid" id="photoGallery">
+    <!-- Photos will be loaded here by JavaScript -->
   </div>
 </section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-content">
+    <button class="lightbox-close" id="lightboxClose"></button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev"></button>
+    <img class="lightbox-image" id="lightboxImage" src="" alt="">
+    <button class="lightbox-nav lightbox-next" id="lightboxNext"></button>
+    <div class="lightbox-counter">
+      <span id="lightboxCounter">1 / 17</span>
+    </div>
+  </div>
+</div>
 
 <!-- VIDEO -->
 <section id="video" class="reveal">
@@ -886,6 +965,106 @@
 </footer>
 
 <script>
+  // Photo Gallery Data
+  const photos = [
+    { name: 'Foto 1', category: 'Retrato editorial' },
+    { name: 'Foto 2', category: 'Marca personal' },
+    { name: 'Foto 3', category: 'Lifestyle' },
+    { name: 'Foto 4', category: 'Producto' },
+    { name: 'Foto 5', category: 'Editorial' },
+    { name: 'Foto 6', category: 'Retrato' },
+    { name: 'Foto 7', category: 'Retrato editorial' },
+    { name: 'Foto 8', category: 'Marca personal' },
+    { name: 'Foto 9', category: 'Lifestyle' },
+    { name: 'Foto 10', category: 'Producto' },
+    { name: 'Foto 11', category: 'Editorial' },
+    { name: 'Foto 12', category: 'Retrato' },
+    { name: 'Foto 13', category: 'Retrato editorial' },
+    { name: 'Foto 14', category: 'Marca personal' },
+    { name: 'Foto 15', category: 'Lifestyle' },
+    { name: 'Foto 16', category: 'Producto' },
+    { name: 'Foto 17', category: 'Editorial' }
+  ];
+
+  let currentPhotoIndex = 0;
+
+  // Load gallery
+  function loadGallery() {
+    const gallery = document.getElementById('photoGallery');
+    photos.forEach((photo, index) => {
+      const item = document.createElement('div');
+      item.className = 'photo-item';
+      item.innerHTML = `
+        <img src="${photo.name}" alt="${photo.name}">
+        <div class="photo-overlay">
+          <div class="photo-overlay-text">
+            <div class="photo-overlay-cat">${photo.category}</div>
+            ${photo.name}
+          </div>
+        </div>
+      `;
+      item.addEventListener('click', () => openLightbox(index));
+      gallery.appendChild(item);
+    });
+  }
+
+  // Lightbox functions
+  function openLightbox(index) {
+    currentPhotoIndex = index;
+    const lightbox = document.getElementById('lightbox');
+    const image = document.getElementById('lightboxImage');
+    const counter = document.getElementById('lightboxCounter');
+    
+    image.src = photos[index].name;
+    counter.textContent = `${index + 1} / ${photos.length}`;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = 'auto';
+  }
+
+  function nextPhoto() {
+    currentPhotoIndex = (currentPhotoIndex + 1) % photos.length;
+    const image = document.getElementById('lightboxImage');
+    const counter = document.getElementById('lightboxCounter');
+    image.src = photos[currentPhotoIndex].name;
+    counter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
+  }
+
+  function prevPhoto() {
+    currentPhotoIndex = (currentPhotoIndex - 1 + photos.length) % photos.length;
+    const image = document.getElementById('lightboxImage');
+    const counter = document.getElementById('lightboxCounter');
+    image.src = photos[currentPhotoIndex].name;
+    counter.textContent = `${currentPhotoIndex + 1} / ${photos.length}`;
+  }
+
+  // Event listeners
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  document.getElementById('lightboxNext').addEventListener('click', nextPhoto);
+  document.getElementById('lightboxPrev').addEventListener('click', prevPhoto);
+
+  // Close lightbox on background click
+  document.getElementById('lightbox').addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (document.getElementById('lightbox').classList.contains('active')) {
+      if (e.key === 'ArrowRight') nextPhoto();
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'Escape') closeLightbox();
+    }
+  });
+
+  // Initialize gallery
+  loadGallery();
+
   // Cursor glow
   const glow = document.getElementById('cursorGlow');
   document.addEventListener('mousemove', e => {
